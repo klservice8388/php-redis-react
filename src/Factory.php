@@ -47,8 +47,7 @@ class Factory
         }
 
         $protocol = $this->protocol;
-
-        $promise = $this->connector->create($parts['host'], $parts['port'])->then(function (Stream $stream) use ($protocol) {
+        $promise = $this->connector->connect("{$parts['host']}:{$parts['port']}")->then(function (Stream $stream) use ($protocol) {
             return new StreamingClient($stream, $protocol->createResponseParser(), $protocol->createSerializer());
         });
 
